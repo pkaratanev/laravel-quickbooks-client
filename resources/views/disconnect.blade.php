@@ -26,6 +26,10 @@
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
     </form>
+
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
 </div>
 </body>
 </html>

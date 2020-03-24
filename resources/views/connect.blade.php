@@ -14,6 +14,10 @@
     {{-- TODO: Text here to explain what is going on --}}
     {{-- TODO: Work on UI --}}
     <a href="{!! $authorization_uri !!}">Connect to QuickBooks</a>
+
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
 </div>
 </body>
 </html>

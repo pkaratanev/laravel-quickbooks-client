@@ -2,13 +2,13 @@
 
 namespace Spinen\QuickBooks\Http\Controllers;
 
-use Alert;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Session;
+use Spinen\QuickBooks\Client as QuickBooks;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as LaravelController;
-use Illuminate\Routing\Redirector;
-use Spinen\QuickBooks\Client as QuickBooks;
 
 /**
  * Class Controller
@@ -58,9 +58,8 @@ class Controller extends LaravelController
     {
         $quickbooks->deleteToken();
 
-        // TODO: Figure out where to put this in session & remove Facade
-        Alert::success('Disconnected from QuickBooks')
-             ->flash();
+        Session::flash('message', 'Disconnected from QuickBooks');
+        Session::flash('alert-class', 'alert-danger');
 
         return $redirector->back();
     }
@@ -85,9 +84,8 @@ class Controller extends LaravelController
         // TODO: Deal with exceptions
         $quickbooks->exchangeCodeForToken($request->get('code'), $request->get('realmId'));
 
-        // TODO: Figure out where to put this in session & remove Facade
-        Alert::success('Connected to QuickBooks')
-             ->flash();
+        Session::flash('message', 'Connected to QuickBooks');
+        Session::flash('alert-class', 'alert-danger');
 
         return $redirector->intended($url_generator->route('quickbooks.connect'));
     }

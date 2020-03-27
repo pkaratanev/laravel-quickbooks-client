@@ -73,6 +73,7 @@ return [
             'token'      => 'token',
         ],
         'prefix'     => 'quickbooks',
+        'redirect' => '/quickbooks/connect'
     ],
 
     /*

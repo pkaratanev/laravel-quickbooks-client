@@ -87,6 +87,6 @@ class Controller extends LaravelController
         Session::flash('message', 'Connected to QuickBooks');
         Session::flash('alert-class', 'alert-danger');
 
-        return $redirector->intended($url_generator->route('quickbooks.connect'));
+        return $redirector->intended(config('quickbooks.route.redirect'));
     }
 }

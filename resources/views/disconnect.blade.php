@@ -15,7 +15,7 @@
     {{-- TODO: Work on UI --}}
     <a href="{{ route('quickbooks.disconnect') }}"
        onclick="event.preventDefault();document.getElementById('disconnect-form').submit();">
-        Disconnect from {{ $company->CompanyName }}
+        Disconnect
     </a>
 
     <form id="disconnect-form"

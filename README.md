@@ -13,22 +13,39 @@ We solely use [Laravel](https://www.laravel.com) for our applications, so this p
 
 | Branch | Status | Coverage | Code Quality |
 | ------ | :----: | :------: | :----------: |
-| Develop | [![Build Status](https://travis-ci.org/spinen/laravel-quickbooks-client.svg?branch=develop)](https://travis-ci.org/spinen/laravel-quickbooks-client) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) |
-| Master | [![Build Status](https://travis-ci.org/spinen/laravel-quickbooks-client.svg?branch=master)](https://travis-ci.org/spinen/laravel-quickbooks-client) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=master) |
+| Develop | [![Build Status](https://github.com/spinen/laravel-quickbooks-client/workflows/CI/badge.svg?branch=develop)](https://github.com/spinen/laravel-quickbooks-client/workflows/CI/badge.svg?branch=develop) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) |
+| Master | [![Build Status](https://github.com/spinen/laravel-quickbooks-client/workflows/CI/badge.svg?branch=master)](https://github.com/spinen/laravel-quickbooks-client/workflows/CI/badge.svg?branch=master) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=master) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=master) |
 
 ## Installation
 
-Install QuickBooks PHP Client:
+1. Install QuickBooks PHP Client:
 
 ```bash
 $ composer require spinen/laravel-quickbooks-client
 ```
 
-The package uses the [auto registration feature](https://laravel.com/docs/5.8/packages#package-discovery) of Laravel 5.
+2. Run our migration to install the `quickbooks_tokens` table:
+
+```bash
+$ php artisan migrate --package=spinen/laravel-quickbooks-client
+```
+
+The package uses the [auto registration feature](https://laravel.com/docs/packages#package-discovery) of Laravel.
 
 ## Configuration
 
-1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\Laravel\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship.  **NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
+1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship. To do this implement the following:
+
+Add ```use Spinen\QuickBooks\HasQuickBooksToken;``` to your service container at the top of User.php
+and also add the trait within the class. For example:
+
+```php
+class User extends Authenticatable
+{
+    use Notifiable, HasQuickBooksToken;
+```
+    
+**NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
 
 2. Add the appropriate values to your ```.env```
 

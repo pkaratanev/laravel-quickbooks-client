@@ -54,7 +54,7 @@ class Controller extends LaravelController
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Exception
      */
-    public function disconnect(Redirector $redirector, QuickBooks $quickbooks)
+    public function disconnect(Redirector $redirector, Request $request, QuickBooks $quickbooks)
     {
         $quickbooks->deleteToken();
 
